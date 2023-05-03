@@ -12,6 +12,7 @@ namespace ClassProject
         private static Customer customer;
         static void Main(string[] args)
         {
+            Console.WriteLine("Welcome to Smile Brite Dental Services, we are happy to serve you!");
             Console.WriteLine("Initializing...");
             Initialize();
             Menu();
@@ -175,7 +176,40 @@ namespace ClassProject
                 Console.WriteLine("Invalid date/time format. Please try again.");
                 return;
             }
-
+            bool done = false;
+            while(!done)
+            {
+                Console.WriteLine("Appointment Options: Cleaning: 1 -- Root Canal: 2 -- Extraction: 3 -- Filling: 4 -- X-Ray: 5 -- Clear Screen: 6 -- Quit: q--");
+                Console.WriteLine("Appointment Type: ");
+                string type = Console.ReadLine();
+                switch (type)
+                {
+                    case "1":
+                        Console.WriteLine("You've signed up for a cleaning with Dr. Aldrin");
+                        break;
+                    case "2":
+                        Console.WriteLine("You've signed up for a Root Canal with Dr. Stinson");
+                        break;
+                    case "3":
+                        Console.WriteLine("You've signed up for a Extraction with Dr. Scherbatsky");
+                        break;
+                    case "4":
+                        Console.WriteLine("You've signed up for a Filling with Dr. Aldrin");
+                        break;
+                    case "5":
+                        Console.WriteLine("You've signed up for an X-Ray with Dr. Stinson");
+                        break;
+                    case "6":
+                        Console.Clear();
+                        break;
+                    case "q":
+                        done = true;
+                        break;
+                    default:
+                        Console.WriteLine("Invalid option!");
+                        break;
+                };
+            }
             // Create a new appointment for the current user with the specified date and time
             var newAppointment = new Appointments
             {
@@ -189,7 +223,7 @@ namespace ClassProject
            
         }
 
-
+        
 
 
     }
