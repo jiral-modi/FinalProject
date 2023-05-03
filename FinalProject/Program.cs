@@ -1,15 +1,18 @@
 ﻿using FinalProject.Models;
-namespace FinalProject
+
+namespace ClassProject
 {
     public class Program
     {
         private static Customers customers;
-        private static List<Appointments> appointments;
-        private static List<Customer_Appointment> customerAppointments;
+        private static List<Customer_Appointment> appointments;
+        private static List<Appointments> customerAppointments;
         private static Customer authenticatedCustomer;
+
+        private static Customer customer;
         static void Main(string[] args)
         {
-            Console.WriteLine("Initializing....");
+            Console.WriteLine("Initializing...");
             Initialize();
             Menu();
         }
@@ -20,21 +23,16 @@ namespace FinalProject
             {
                 FirstName = "Jake",
                 LastName = "Peralta",
-                UserName = "Jake.Peralta",
-                Password = "12345",
+                Username = "Jake.Peralta",
+                Password = "12345"
             };
             var c2 = new Customer
             {
                 FirstName = "Amy",
                 LastName = "Santiago",
-                UserName = "Amy.Santiago",
-                Password = "12346",
+                Username = "Amy.Santiago",
+                Password = "12346"
             };
-
-            customers = new Customers();
-            customers.customers.Add(c1);
-            customers.customers.Add(c2);
-
             var a1 = new Appointments();
             var a2 = new Appointments();
             var a3 = new Appointments();
@@ -43,21 +41,35 @@ namespace FinalProject
             var ca2 = new Customer_Appointment(c1, a2);
             var ca3 = new Customer_Appointment(c2, a3);
 
-            appointments = new List<Appointments>();
-            appointments.Add(a1); //ask him about ca1;
-            appointments.Add(a2);
-            appointments.Add(a3);
+            customers = new Customers();
+            customers.customers.Add(c1);
+            customers.customers.Add(c2);
+
+            customerAppointments = new List<Appointments>();
+            customerAppointments.Add(a1);
+            customerAppointments.Add(a2);
+            customerAppointments.Add(a3);
+
+            appointments = new List<Customer_Appointment>();
+            appointments.Add(ca1);
+            appointments.Add(ca2);
+            appointments.Add(ca3);
+
+           
+
+
         }
+
         static void Menu()
         {
             bool done = false;
 
-            while(!done)
+            while (!done)
             {
-                Console.WriteLine("Options: Login 1 ---- Logout: 2---- Sign Up: 3 --- Appointments: 4 --- Clear Screen: c --- quit");
+                Console.WriteLine("Options: Login: 1 --- Logout: 2 --- Sign Up: 3 --- Appointments: 4 --- Clear Screen: c --- Quit: q ---");
                 Console.Write("Choice: ");
                 string choice = Console.ReadLine();
-                switch(choice)
+                switch (choice)
                 {
                     case "1":
                         LoginMenu();
@@ -71,27 +83,31 @@ namespace FinalProject
                     case "4":
                         GetCurrentAppointmentsMenu();
                         break;
-                    case "C":
+                    case "c":
                         Console.Clear();
                         break;
                     case "q":
                         done = true;
                         break;
                     default:
-                        Console.WriteLine("invalid command!");
+                        Console.WriteLine("Invalid command!");
                         break;
                 }
+
             }
+
         }
+
+
         static void LoginMenu()
         {
-            if(authenticatedCustomer == null)
+            if (authenticatedCustomer == null)
             {
-                Console.Write("Enter your Username: ");
-                string userName = Console.ReadLine();
-                Console.Write("Enter your Password: ");
+                Console.Write("Enter your username: ");
+                string username = Console.ReadLine();
+                Console.Write("Enter your password: ");
                 string password = Console.ReadLine();
-                authenticatedCustomer = customers.Authenticate(userName, password);
+                authenticatedCustomer = customers.Authenticate(username, password);
                 if (authenticatedCustomer != null)
                 {
                     Console.WriteLine($"Welcome {authenticatedCustomer.FirstName}");
@@ -103,14 +119,16 @@ namespace FinalProject
             }
             else
             {
-                Console.WriteLine($"You are already logged in as {authenticatedCustomer.UserName}");
+                Console.WriteLine($"You are already logged in as {authenticatedCustomer.Username}");
             }
         }
+
         static void LogoutMenu()
         {
             authenticatedCustomer = null;
-            Console.WriteLine("Logged out");
+            Console.WriteLine("Logged out!");
         }
+
         static void SignUpMenu()
         {
             Console.Write("First Name: ");
@@ -118,54 +136,61 @@ namespace FinalProject
             Console.Write("Last Name: ");
             string LastName = Console.ReadLine();
             Console.Write("Username: ");
-            string UserName = Console.ReadLine();
+            string username = Console.ReadLine();
             Console.Write("Password: ");
-            string PassWord = Console.ReadLine();
-            Console.Write("Email: ");
-            string email = Console.ReadLine();
+            string password = Console.ReadLine();
 
-            var newCustomer = new Customer();
-                Customer customer = new Customer
-                {
-                    FirstName = firstName,
-                    LastName = LastName,
-                    UserName = UserName,
-                    Password = PassWord,
-                    Email = email,
-      
-                };
+            var newCustomer = new Customer
+            {
+                FirstName = firstName,
+                LastName = LastName,
+                Username = username,
+                Password = password
+            };
+
             customers.customers.Add(newCustomer);
-            Console.WriteLine("Profile created:");
+
+            Console.WriteLine("Profile created!");
+
         }
+
+
         static void GetCurrentAppointmentsMenu()
         {
-            if(authenticatedCustomer == null)
+            if (authenticatedCustomer == null)
             {
-                Console.WriteLine("You are not loggin in.");
+                Console.WriteLine("You are not logged in.");
                 return;
             }
 
-            var appointmentList = customerAppointments.Where(o => o.customer.UserName == authenticatedCustomer.UserName);
+            // Prompt user for date and time of appointment
+            Console.Write("Enter the date of your appointment (MM/DD/YYYY): ");
+            string dateInput = Console.ReadLine();
+            Console.Write("Enter the time of your appointment (HH:MM): ");
+            string timeInput = Console.ReadLine();
 
-            if(appointmentList.Count() == 0)
+            // Require user input into a DateTime object
+            if (!DateTime.TryParse($"{dateInput} {timeInput}", out DateTime appointmentDateTime))
             {
-                Console.WriteLine("0 appointment found.");
+                Console.WriteLine("Invalid date/time format. Please try again.");
+                return;
             }
 
-            Console.WriteLine("Would you like to schedule an appointment today?");
-            if (Console.ReadLine() == "yes")
+            // Create a new appointment for the current user with the specified date and time
+            var newAppointment = new Appointments
             {
-                Console.WriteLine("Options:  1 ---- Logout: 2---- Sign Up: 3 --- Appointments: 4 --- Clear Screen: c --- quit");
-            }
+                customers = authenticatedCustomer,
+                date = appointmentDateTime
+            };
 
-            else
-            {
-                foreach(var appointment in appointmentList)
-                {
-                    Console.WriteLine(appointment.appointments.date);
-                }
-            }
+            customerAppointments.Add(newAppointment);
+
+            Console.WriteLine("Appointment added!");
+           
         }
+
+
+
 
     }
 }

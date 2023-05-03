@@ -1,4 +1,10 @@
-﻿namespace FinalProject.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace FinalProject.Models
 {
     public class Customers
     {
@@ -11,7 +17,7 @@
 
         public Customer Authenticate(string username, string password)
         {
-            var c = customers.Where(o => o.UserName == username).First();
+            var c = customers.Where(o => o.Username == username).First();
             //return the object where the object.username matches the username sent to this method
             if (c != null)
             {
