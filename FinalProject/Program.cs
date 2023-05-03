@@ -2,81 +2,81 @@
 
 namespace ClassProject
 {
-    public class Program
+    public class Program//this is open access to anyone with the program
     {
-        private static Customers customers;
-        private static List<Customer_Appointment> appointments;
-        private static List<Appointments> customerAppointments;
-        private static Customer authenticatedCustomer;
+        private static Customers customers;//pulling our information the customer class
+        private static List<Customer_Appointment> appointments;//generating a list of customers with appointments
+        private static List<Appointments> customerAppointments;//pulling information into the appointment class
+        private static Customer authenticatedCustomer;//making sure this individual is an actual customer
 
-        private static Customer customer;
-        static void Main(string[] args)
+        private static Customer customer;//
+        static void Main(string[] args)//the normal constructor we use
         {
-            Console.WriteLine("Welcome to Smile Brite Dental Services, we are happy to serve you!");
-            Console.WriteLine("Initializing...");
-            Initialize();
-            Menu();
+            Console.WriteLine("Welcome to Smile Brite Dental Services, we are happy to serve you!");//welcoming the customer
+            Console.WriteLine("Initializing...");// initializing message
+            Initialize(); //calling initializing method
+            Menu(); // calling menu method
         }
 
         static void Initialize()
         {
-            var c1 = new Customer
+            var c1 = new Customer //adds new customer
             {
                 FirstName = "Jake",
                 LastName = "Peralta",
                 Username = "Jake.Peralta",
                 Password = "12345"
             };
-            var c2 = new Customer
+            var c2 = new Customer //adds new customer
             {
                 FirstName = "Amy",
                 LastName = "Santiago",
                 Username = "Amy.Santiago",
                 Password = "12346"
             };
-            var a1 = new Appointments();
-            var a2 = new Appointments();
-            var a3 = new Appointments();
+            var a1 = new Appointments(); //makes new appointments
+            var a2 = new Appointments(); //makes new appointments
+            var a3 = new Appointments(); //makes new appointments
 
-            var ca1 = new Customer_Appointment(c1, a1);
-            var ca2 = new Customer_Appointment(c1, a2);
-            var ca3 = new Customer_Appointment(c2, a3);
+            var ca1 = new Customer_Appointment(c1, a1); //associates customer to specific appointment
+            var ca2 = new Customer_Appointment(c1, a2);//associates customer to specific appointment
+            var ca3 = new Customer_Appointment(c2, a3);//associates customer to specific appointment
 
-            customers = new Customers();
-            customers.customers.Add(c1);
-            customers.customers.Add(c2);
+            customers = new Customers(); //makes new customer calling customer class
+            customers.customers.Add(c1); //adds c1 to the customer class
+            customers.customers.Add(c2); //adds c2 to the customer class
 
-            customerAppointments = new List<Appointments>();
-            customerAppointments.Add(a1);
-            customerAppointments.Add(a2);
-            customerAppointments.Add(a3);
+            customerAppointments = new List<Appointments>(); //creates a new list of appointments
+            customerAppointments.Add(a1); //adds customer appointments to the customer appointment class
+            customerAppointments.Add(a2);//adds customer appointments to the customer appointment class
+            customerAppointments.Add(a3);//adds customer appointments to the customer appointment class
 
-            appointments = new List<Customer_Appointment>();
-            appointments.Add(ca1);
-            appointments.Add(ca2);
-            appointments.Add(ca3);
+            appointments = new List<Customer_Appointment>(); //creates a new list of customers and appointmets
+            appointments.Add(ca1); // adds appointments to the doctor's calendar
+            appointments.Add(ca2);// adds appointments to the doctor's calendar
+            appointments.Add(ca3);// adds appointments to the doctor's calendar
 
-           
+
 
 
         }
 
-        static void Menu()
+        static void Menu() //menu method
         {
-            bool done = false;
+            bool done = false; //creates a way to end the loop
 
-            while (!done)
+            while (!done) // loop for basic operations
             {
-                Console.WriteLine("Options: Login: 1 --- Logout: 2 --- Sign Up: 3 --- Appointments: 4 --- Clear Screen: c --- Quit: q ---");
+                Console.WriteLine("Options: Login: 1 --- Logout: 2 --- Sign Up: 3 --- Appointments: 4 --- Clear Screen: c --- Quit: q ---"); //presents options for basic operations
                 Console.Write("Choice: ");
-                string choice = Console.ReadLine();
-                switch (choice)
+                string choice = Console.ReadLine(); //records the option selection by the customer
+                switch (choice) //based on the user's selection...
                 {
-                    case "1":
-                        LoginMenu();
-                        break;
-                    case "2":
-                        LogoutMenu();
+                    case "1": // if the user chooses 1...
+                        LoginMenu(); //sends them to the login menu
+                        break; //breaks loop
+                    case "2": // if the user chooses 2...
+                        LogoutMenu(); //sends them to the logout menu
                         break;
                     case "3":
                         SignUpMenu();
