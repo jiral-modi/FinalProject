@@ -13,7 +13,7 @@ namespace FinalProject.Models
         public Customer_Appointment(Customer c, Appointments a)
         {
             customer = c;
-            appointments = a;
+            appointments = a;           
         }
     }
 }

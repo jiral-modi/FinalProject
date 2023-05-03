@@ -18,16 +18,16 @@ namespace FinalProject
         {
             var c1 = new Customer
             {
-                FirstName = "Kambiz",
-                LastName = "Saffari",
-                UserName = "Kambiz",
+                FirstName = "Jake",
+                LastName = "Peralta",
+                UserName = "Jake.Peralta",
                 Password = "12345",
             };
             var c2 = new Customer
             {
-                FirstName = "Terence",
-                LastName = "Ow",
-                UserName = "Terence",
+                FirstName = "Amy",
+                LastName = "Santiago",
+                UserName = "Amy.Santiago",
                 Password = "12346",
             };
 
@@ -44,9 +44,9 @@ namespace FinalProject
             var ca3 = new Customer_Appointment(c2, a3);
 
             appointments = new List<Appointments>();
-            appointments.Add(ca1);
-            appointments.Add(ca2);
-            appointments.Add(ca3);
+            appointments.Add(a1); //ask him about ca1;
+            appointments.Add(a2);
+            appointments.Add(a3);
         }
         static void Menu()
         {
@@ -124,7 +124,7 @@ namespace FinalProject
             Console.Write("Email: ");
             string email = Console.ReadLine();
 
-            var newCustomer = new Customer
+            var newCustomer = new Customer();
                 Customer customer = new Customer
                 {
                     FirstName = firstName,
