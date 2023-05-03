@@ -77,71 +77,68 @@ namespace ClassProject
                         break; //breaks loop
                     case "2": // if the user chooses 2...
                         LogoutMenu(); //sends them to the logout menu
-                        break;
-                    case "3":
+                        break;//stops if option is selected
+                    case "3": //if the user chooses 3...
                         SignUpMenu();
-                        break;
-                    case "4":
+                        break;//stops if option is selected
+                    case "4": //if the user chooses 4...
                         GetCurrentAppointmentsMenu();
-                        break;
-                    case "c":
+                        break;//stops if option is selected
+                    case "c": //if the user chooses 5=c...
                         Console.Clear();
-                        break;
-                    case "q":
+                        break;//stops if option is selected
+                    case "q": //if the user chooses q...
                         done = true;
-                        break;
-                    default:
-                        Console.WriteLine("Invalid command!");
-                        break;
+                        break;//stops if option is selected
+                    default: //the default option
+                        Console.WriteLine("Invalid command!");//their choice wasn't one of the ones listed
+                        break;//stops if option is selected
                 }
 
             }
 
         }
-
-
-        static void LoginMenu()
+        static void LoginMenu() //pulls the information for the logging in
         {
-            if (authenticatedCustomer == null)
+            if (authenticatedCustomer == null) //testing if the customer is an existing customer
             {
-                Console.Write("Enter your username: ");
-                string username = Console.ReadLine();
-                Console.Write("Enter your password: ");
-                string password = Console.ReadLine();
-                authenticatedCustomer = customers.Authenticate(username, password);
-                if (authenticatedCustomer != null)
+                Console.Write("Enter your username: "); //prompting to add username
+                string username = Console.ReadLine();//displaying the username
+                Console.Write("Enter your password: "); //prompting to add password
+                string password = Console.ReadLine(); //displaying the password
+                authenticatedCustomer = customers.Authenticate(username, password); //checking to see if the username and password match
+                if (authenticatedCustomer != null) //if the username and password check out
                 {
-                    Console.WriteLine($"Welcome {authenticatedCustomer.FirstName}");
-                }
+                    Console.WriteLine($"Welcome {authenticatedCustomer.FirstName}"); //welcome individual
+                } 
                 else
                 {
-                    Console.WriteLine("invalid username or password");
+                    Console.WriteLine("invalid username or password"); //password and username are not a match
                 }
             }
             else
             {
-                Console.WriteLine($"You are already logged in as {authenticatedCustomer.Username}");
+                Console.WriteLine($"You are already logged in as {authenticatedCustomer.Username}");//they are already logged in
             }
         }
-
-        static void LogoutMenu()
+        static void LogoutMenu() //prompting the log out method
         {
             authenticatedCustomer = null;
-            Console.WriteLine("Logged out!");
+            Console.WriteLine("Logged out!"); //user is informed that they are logged out
         }
 
-        static void SignUpMenu()
+        static void SignUpMenu() //adding new customer to the system
         {
-            Console.Write("First Name: ");
-            string firstName = Console.ReadLine();
-            Console.Write("Last Name: ");
-            string LastName = Console.ReadLine();
-            Console.Write("Username: ");
-            string username = Console.ReadLine();
-            Console.Write("Password: ");
-            string password = Console.ReadLine();
-
-            var newCustomer = new Customer
+            Console.Write("First Name: "); //asking for their first name
+            string firstName = Console.ReadLine(); //saving the first name
+            Console.Write("Last Name: "); //asking for the last name
+            string LastName = Console.ReadLine(); //saving the last name
+            Console.Write("Username: ");//creating the username
+            string username = Console.ReadLine();//saving the username
+            Console.Write("Password: "); //creating the password
+            string password = Console.ReadLine(); //saving the password
+             
+            var newCustomer = new Customer //adding the customer to customer class
             {
                 FirstName = firstName,
                 LastName = LastName,
@@ -149,19 +146,19 @@ namespace ClassProject
                 Password = password
             };
 
-            customers.customers.Add(newCustomer);
+            customers.customers.Add(newCustomer); //added the new customer to the customer list
 
-            Console.WriteLine("Profile created!");
+            Console.WriteLine("Profile created!"); //profile has been created
 
         }
 
 
-        static void GetCurrentAppointmentsMenu()
+        static void GetCurrentAppointmentsMenu() //calling the current appointments menu
         {
-            if (authenticatedCustomer == null)
+            if (authenticatedCustomer == null) //if the customer isn't logged in
             {
-                Console.WriteLine("You are not logged in.");
-                return;
+                Console.WriteLine("You are not logged in."); //they need to sign in before scheduling appointment
+                return; 
             }
 
             // Prompt user for date and time of appointment
@@ -186,28 +183,28 @@ namespace ClassProject
                 {
                     case "1":
                         Console.WriteLine("You've signed up for a cleaning with Dr. Aldrin");
-                        break;
+                        break;//stops if option is selected
                     case "2":
                         Console.WriteLine("You've signed up for a Root Canal with Dr. Stinson");
-                        break;
+                        break;//stops if option is selected
                     case "3":
                         Console.WriteLine("You've signed up for a Extraction with Dr. Scherbatsky");
-                        break;
+                        break;//stops if option is selected
                     case "4":
                         Console.WriteLine("You've signed up for a Filling with Dr. Aldrin");
-                        break;
+                        break;//stops if option is selected
                     case "5":
                         Console.WriteLine("You've signed up for an X-Ray with Dr. Stinson");
-                        break;
+                        break;//stops if option is selected
                     case "6":
                         Console.Clear();
-                        break;
+                        break;//stops if option is selected
                     case "q":
                         done = true;
-                        break;
+                        break;//stops if option is selected
                     default:
                         Console.WriteLine("Invalid option!");
-                        break;
+                        break;//stops if option is selected
                 };
             }
             // Create a new appointment for the current user with the specified date and time
